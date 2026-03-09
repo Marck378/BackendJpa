@@ -29,13 +29,14 @@ public class Mapper {
 	}
 
 	public static AbbonamentoDTO buildAbbonamentoDTO(Abbonamento a){
-		return AbbonamentoDTO.builder()
-						.id(a.getId())
-						.dataIscrizione(a.getDataIscrizione())
-						.attivita(buildAttivitaDTO(a.getAttivitas()))
-						.build();						
+	    if (a == null) return null;
+	    
+	    return AbbonamentoDTO.builder()
+	            .id(a.getId())
+	            .dataIscrizione(a.getDataIscrizione())
+	            .attivita(buildAttivitaDTO(a.getAttivitas()))
+	            .build();						
 	}
-	
 
 	
 	public static List<AttivitaDTO> buildAttivitaDTO(List<Attivita> lA){

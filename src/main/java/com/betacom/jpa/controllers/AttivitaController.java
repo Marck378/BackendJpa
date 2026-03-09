@@ -25,8 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/rest/attivita")
 public class AttivitaController {
 	
-	private final IMessagioServices    msgS;
-	private final IAttivitaServices    attS;
+	private final IMessagioServices  msgS;
+	private final IAttivitaServices  attS;
+	
 	
 	@PostMapping("/create")
 	public ResponseEntity<Resp> create(@RequestBody(required = true)  AttivitaReq req){
