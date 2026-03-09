@@ -12,9 +12,14 @@ import com.betacom.jpa.models.Attivita;
 import com.betacom.jpa.models.Socio;
 
 public class Mapper {
-
+	
+	           
 	public static List<AbbonamentoDTO> buildAbbonamentoDTO(List<Abbonamento> lA){
-		return lA.stream()
+	
+	    if (lA == null) return new java.util.ArrayList<>(); 
+	    
+	    return lA.stream()
+	            // ... resto del codice ...
 				.map(a -> AbbonamentoDTO.builder()
 						.id(a.getId())
 						.dataIscrizione(a.getDataIscrizione())
@@ -34,7 +39,11 @@ public class Mapper {
 
 	
 	public static List<AttivitaDTO> buildAttivitaDTO(List<Attivita> lA){
-		return lA.stream()
+	  
+	    if (lA == null) return new java.util.ArrayList<>();
+	    
+	    return lA.stream()
+	         
 				.map(a -> AttivitaDTO.builder()
 						.id(a.getId())
 						.description(a.getDescription())
