@@ -37,8 +37,8 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	@Override
 	public void create(AbbonamentoReq req) throws Exception {
 		log.debug("create {}", req);
-		Socio soc = socioR.findById(req.getSocioID())
-				.orElseThrow(() -> new AcademyException("Socio non trovato in DB:" + req.getSocioID()));
+		Socio soc = socioR.findById(req.getSocioId()) 
+		        .orElseThrow(() -> new AcademyException("Socio non trovato in DB:" + req.getSocioId()));
 		Abbonamento abb = new Abbonamento();
 		abb.setDataIscrizione( stringToDate(req.getDataIscrizione()));
 		abb.setSocio(soc);

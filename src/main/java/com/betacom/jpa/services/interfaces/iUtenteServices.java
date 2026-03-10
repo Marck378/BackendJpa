@@ -1,0 +1,15 @@
+package com.betacom.jpa.services.interfaces;
+
+import java.util.List;
+
+import com.betacom.jpa.dto.inputs.UtenteReq;
+import com.betacom.jpa.dto.outputs.UtenteDTO;
+
+public interface iUtenteServices {
+	void create (UtenteReq req) throws Exception;
+	void update(UtenteReq req)throws Exception;
+	void delete(String userName)throws Exception;
+	
+	List<UtenteDTO> list();
+	UtenteDTO getByUserNmsr(String userName)throws Exception;
+}

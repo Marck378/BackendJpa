@@ -10,5 +10,5 @@ import lombok.ToString;
 public class AbbonamentoReq {
 	private Integer id;
 	private String dataIscrizione;
-	private Integer socioID;
+	private Integer socioId;
 }

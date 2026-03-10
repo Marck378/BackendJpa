@@ -40,6 +40,13 @@
         email varchar(255),
         primary key (id)
     );
+    create table utente (
+    user_name varchar(255) not null,
+    pwd varchar(255),
+    role smallint check (role between 0 and 2),
+    email varchar(255),
+    primary key (user_name)
+    );
 
     alter table if exists abbonamento_attivita 
        add constraint FK853iwjge5sco7nac3v8pvs72v 
