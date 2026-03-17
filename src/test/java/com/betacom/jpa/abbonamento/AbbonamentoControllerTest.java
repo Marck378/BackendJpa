@@ -33,7 +33,7 @@ public class AbbonamentoControllerTest {
 		log.debug("create Abbonamento");
 		AbbonamentoReq req = new AbbonamentoReq();
 		req.setDataIscrizione("03/03/2026");
-		req.setSocioID(1);
+		req.setSocioId(1);
 		
 		ResponseEntity<Resp> resp = abboC.create(req);
 		assertEquals(HttpStatus.OK, resp.getStatusCode());

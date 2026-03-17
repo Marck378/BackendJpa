@@ -6,5 +6,5 @@ import com.betacom.jpa.models.Utente;
 
 public interface IUtenteRepository extends JpaRepository<Utente, String>{
 	
-
+	boolean existsByUserName(String userName);
 }

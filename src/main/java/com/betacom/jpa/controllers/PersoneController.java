@@ -10,33 +10,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController; 
+import org.springframework.web.bind.annotation.RestController;
 
-import com.betacom.jpa.dto.inputs.UtenteReq;
+import com.betacom.jpa.dto.inputs.PersoneReq;
+import com.betacom.jpa.dto.inputs.SocioReq;
 import com.betacom.jpa.response.Resp;
 import com.betacom.jpa.services.interfaces.IMessagioServices;
-import com.betacom.jpa.services.interfaces.iUtenteServices;
+import com.betacom.jpa.services.interfaces.IPersoneServices;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-@RestController 
-@Getter
-@Setter
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/rest/utente")
-public class UtenteController {
+@RestController
+@RequestMapping("/rest/Persone")
+public class PersoneController {
+	private final IPersoneServices perS;
+	private final IMessagioServices mgS;
 	
-	private final iUtenteServices utS;
-	private final IMessagioServices msgS;
 	
 	@PostMapping("/create")
-	public ResponseEntity<Resp> create(@RequestBody(required = true) UtenteReq req){
+	public ResponseEntity<Resp> create(@RequestBody(required = true)  PersoneReq req){
 		Resp r = new Resp();
 		HttpStatus status = HttpStatus.OK;
 		try {
-			utS.create(req);
-			r.setMsg(msgS.get("rest_created"));
+			perS.create(req);
+			r.setMsg(mgS.get("rest_created"));
 		} catch (Exception e) {
 			r.setMsg(e.getMessage());
 			status = HttpStatus.BAD_REQUEST;
@@ -45,13 +44,14 @@ public class UtenteController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Resp> update(@RequestBody(required = true) UtenteReq req){
+	public ResponseEntity<Resp> update(@RequestBody(required = true)  PersoneReq req){
 		Resp r = new Resp();
 		HttpStatus status = HttpStatus.OK;
 		try {
-			utS.update(req);
-			r.setMsg(msgS.get("rest_updated"));
+			perS.update(req);
+			r.setMsg(mgS.get("rest_updated"));
 		} catch (Exception e) {
+			log.debug("Error:" + e.getMessage());
 			r.setMsg(e.getMessage());
 			status = HttpStatus.BAD_REQUEST;
 		}
@@ -59,42 +59,45 @@ public class UtenteController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Resp> delete(@PathVariable(required = true) String id){ 
+	public ResponseEntity<Resp> delete(@PathVariable(required = true)  Integer id){
 		Resp r = new Resp();
 		HttpStatus status = HttpStatus.OK;
 		try {
-			utS.delete(id);
-			r.setMsg(msgS.get("rest_deleted"));
+			perS.delete(id);
+			r.setMsg(mgS.get("rest_deleted"));
 		} catch (Exception e) {
 			r.setMsg(e.getMessage());
 			status = HttpStatus.BAD_REQUEST;
 		}
 		return ResponseEntity.status(status).body(r);		
 	}
-	
 	@GetMapping("/list")
 	public ResponseEntity<Object> list(){
 		Object r = new Object();
 		HttpStatus status = HttpStatus.OK;
 		try {
-			r = utS.list();
+			r= perS.list() ;
+			log.debug("response ok");
 		} catch (Exception e) {
-			r = e.getMessage();
+			log.debug("error:" + e.getMessage());
+			r=e.getMessage();
 			status = HttpStatus.BAD_REQUEST;
 		}
 		return ResponseEntity.status(status).body(r);
+		
 	}
-	
-	@GetMapping("/findByuserName")
-	public ResponseEntity<Object> findById(@RequestParam(required = true) String id){
+	@GetMapping("/findByAttivita")
+	public ResponseEntity<Object> getById (@RequestParam (required = true)  Integer id){
 		Object r = new Object();
 		HttpStatus status = HttpStatus.OK;
 		try {
-			r = utS.getByUserName(id); 
+			r= perS.getById(id);
 		} catch (Exception e) {
-			r = e.getMessage();
-			status = HttpStatus.BAD_REQUEST; 
+			r=e.getMessage();
+			status = HttpStatus.BAD_REQUEST;
 		}
 		return ResponseEntity.status(status).body(r);
+		
 	}
+
 }

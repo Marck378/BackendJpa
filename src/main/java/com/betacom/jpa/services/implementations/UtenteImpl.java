@@ -42,7 +42,7 @@ public class UtenteImpl implements iUtenteServices{
 		if(req.getPwd()!=null)
 			ut.setPwd(req.getPwd());
 		if(req.getEmail()!=null)
-		    ut.setEmail(req.getPwd());
+		    ut.setEmail(req.getPwd()); 
 		if(req.getRole()!=null)
 			ut.setRole(Roles.valueOf(req.getRole()));
 		utR.save(ut);
